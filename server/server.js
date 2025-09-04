@@ -50,7 +50,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Start server
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'test') {
     app.listen(PORT, '0.0.0.0', () => {
         console.log(` Server running on port ${PORT}`);
         // console.log(`📱 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
