@@ -18,7 +18,7 @@ await connectDB();
 
 // CORS configuration
 app.use(cors({
-    origin: process.env.FRONTEND_URL, // Use env variable
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     credentials: true
 }));
 
@@ -49,15 +49,10 @@ app.use(notFound);
 // Global error handler
 app.use(errorHandler);
 
-// Start server
-if (process.env.NODE_ENV !== 'test') {
-    app.listen(PORT, '0.0.0.0', () => {
-        console.log(` Server running on port ${PORT}`);
-        // console.log(`📱 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
-        //console.log(`🌐 API URL: http://localhost:${PORT}`);
-       // console.log(`💳 Stripe Mode: ${process.env.STRIPE_SECRET_KEY?.includes('test') ? 'Test' : 'Live'}`);
-    });
-}
+// Start server (always starts, works on Render + Local)
+app.listen(PORT, '0.0.0.0', () => {
+    console.log(` Server running on http://localhost:${PORT}`);
+    // console.log(`📱 Allowed frontend: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
+});
 
-// Export for Vercel
-export default app;
+export default app; // optional, safe to keep
